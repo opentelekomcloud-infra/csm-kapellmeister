@@ -1,0 +1,5 @@
+csm_home: '/home/linux/customer-service-monitoring'
+infrastructure_dir: 'infrastructure'
+tmp_dir: '/tmp'
+key_name: 'test_host_rsa'
+key_path: "{{ tmp_dir }}/{{ key_name }}"

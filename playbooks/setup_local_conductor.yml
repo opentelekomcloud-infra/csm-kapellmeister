@@ -1,0 +1,22 @@
+---
+- name: Install local requirements
+  become: yes
+  hosts: local
+  vars_files:
+  - 'vars/versions.yml'
+  roles:
+  - role: darkwizard242.terraform
+    vars:
+      terraform_version: "{{ terraform_version }}"
+  vars:
+    requirements: 'requirements.txt'
+    tmp_dir: '/tmp'
+  tasks:
+  - name: Copy Requirements
+    copy:
+      src: "{{ requirements }}"
+      dest: "{{ tmp_dir }}"
+  - name: Install master requirements
+    pip:
+      executable: pip3
+      requirements: "{{ tmp_dir }}/{{ requirements }}"
