@@ -1,0 +1,21 @@
+---
+- name: Add infrastructure info
+  import_playbook: tf_apply.yml
+
+- name: Build scenarios
+  hosts: test_host
+  vars:
+    scenarios:
+    - scenario1
+    - scenario2
+    - scenario3
+    - scenario4
+  tasks:
+  - name: Run all build.sh for each scenario  # noqa 301
+    environment: "{{ credentials_env }}"
+    shell: "./build.sh {{ item }}"
+    args:
+      chdir: "{{ csm_home }}/scenarios"
+    async: 200
+    poll: 5
+    with_items: "{{ scenarios }}"
