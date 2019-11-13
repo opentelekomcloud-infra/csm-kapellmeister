@@ -11,11 +11,17 @@
     - scenario3
     - scenario4
   tasks:
-  - name: Run all build.sh for each scenario  # noqa 301
+  - name: 'Run build.sh for each scenario' # noqa 301 305
     environment: "{{ credentials_env }}"
     shell: "./build.sh {{ item }}"
     args:
       chdir: "{{ csm_home }}/scenarios"
     async: 200
     poll: 5
+    with_items: "{{ scenarios }}"
+  - name: 'Run test.sh for each scenario' # noqa 301 305
+    environment: "{{ credentials_env }}"
+    shell: "./test.sh {{ item }}"
+    args:
+      chdir: "{{ csm_home }}/scenarios"
     with_items: "{{ scenarios }}"
