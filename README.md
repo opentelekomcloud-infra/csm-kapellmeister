@@ -3,20 +3,22 @@ The only legit way to conduct test infrastructure
 
 ### Workflow 
 
-1. **Setup Conductor** \
-    Your master machine is setup with `setup_local_conductor.yml` playbook
-    Install Terraform and required python packages, including Ansible v. 2.8
+1. **Setup Conductor**
 
-1. **Setup test host** \
-    Set up ECS from image `Debian_CSM_test_host` and clone
-    [CSM](https://github.com/opentelekomcloud-infra/customer-service-monitoring)
+    Your master machine is set up with `setup_local_conductor.yml` playbook.
 
-1. **Build target infrastructure** \
-    Run `./build.sh` for each used scenario of 
-    [CSM](https://github.com/opentelekomcloud-infra/customer-service-monitoring).
-    This will create infrastructure used in tests and apply playbooks defined for each scenario
+    *Installs Terraform and required python packages, including Ansible v. 2.8.*
 
-1. **Start monitoring** \
-    Run `./test.sh` for each used scenario.
-    Will start service-like background monitoring of created infrastructure and
-    report to designated InfluxDB instance
+1. **Setup test host**
+
+    Use `prepare_test_host.yml` playbook to set up VM for monitoring.
+
+    *Sets up ECS from image `Debian_CSM_test_host` and clone
+    [CSM](https://github.com/opentelekomcloud-infra/customer-service-monitoring).*
+
+1. **Start monitoring**
+
+    Use `scenario<N>` playbook, where `<N>` is `1..4` to set up exact monitoring scenarios.
+
+    *Runs `./build.sh` and `./test.sh` for scenario from 
+    [CSM](https://github.com/opentelekomcloud-infra/customer-service-monitoring).*
