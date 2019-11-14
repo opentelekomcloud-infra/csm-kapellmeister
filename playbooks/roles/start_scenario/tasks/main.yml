@@ -1,0 +1,16 @@
+---
+- name: 'Run build.sh for each scenario' # noqa 301 305
+  environment: "{{ credentials_env }}"
+  shell: "./build.sh {{ scenario }}"
+  args:
+    chdir: "{{ csm_home }}/scenarios"
+- name: 'Create venv if missing'
+  pip:
+    name: pip
+    virtualenv: "{{ csm_home }}/.venv"
+    virtualenv_command: /usr/bin/python3 -m venv
+- name: 'Run test.sh for each scenario' # noqa 301 305
+  environment: "{{ credentials_env }}"
+  shell: "./test.sh {{ scenario }}"
+  args:
+    chdir: "{{ csm_home }}/scenarios"

@@ -1,6 +1,14 @@
 ---
-- name: Build infrastructure with terraform
-  import_playbook: tf_apply.yml
+- import_playbook: tf_apply.yml
+
+- name: Ensure required packages
+  hosts: test_host
+  become: yes
+  tasks:
+  - name: Ensure python3-venv available
+    apt:
+      name: python3-venv
+      update_cache: yes
 
 - name: Setup created host
   hosts: test_host
