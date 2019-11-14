@@ -1,5 +1,7 @@
-scenario: null
-csm_home: null
+infrastructure_dir: null
+tmp_dir: null
+key_path: null
+key_name: null
 credentials_env:
   AWS_ACCESS_KEY_ID: null
   AWS_SECRET_ACCESS_KEY: null

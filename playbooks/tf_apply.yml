@@ -1,4 +1,4 @@
 - name: Get test infra
   hosts: local
   roles:
-  - tf_apply
+  - tf_apply_test_infra
