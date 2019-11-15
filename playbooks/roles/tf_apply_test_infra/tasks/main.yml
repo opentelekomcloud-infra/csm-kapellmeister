@@ -10,10 +10,10 @@
     args:
       executable: 'python3'
       creates: "{{ key_path }}"
-  - name: chmod 600
+  - name: chmod 400
     file:
       path: "{{ key_path }}"
-      mode: 0600
+      mode: 0400
   - name: Get public key
     openssh_keypair:
       path: "{{ key_path }}"
