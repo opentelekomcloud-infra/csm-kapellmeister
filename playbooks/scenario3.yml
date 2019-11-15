@@ -1,0 +1,8 @@
+- import_playbook: tf_apply.yml
+
+- name: Start scenario 3
+  hosts: test_host
+  vars:
+    scenario: scenario3
+  roles:
+  - start_scenario

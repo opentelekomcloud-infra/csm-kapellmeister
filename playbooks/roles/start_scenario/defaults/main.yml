@@ -1,0 +1,10 @@
+scenario: null
+csm_home: null
+credentials_env:
+  AWS_ACCESS_KEY_ID: null
+  AWS_SECRET_ACCESS_KEY: null
+  TF_VAR_username: null
+  TF_VAR_password: null
+  TF_VAR_psql_password: null
+  INFLUX_PASSWORD: null
+  INFLUX_PSWD: null

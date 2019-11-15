@@ -1,0 +1,27 @@
+---
+- import_playbook: tf_apply.yml
+
+- name: Ensure required packages
+  hosts: test_host
+  become: yes
+  tasks:
+  - name: Ensure python3-venv available
+    apt:
+      name: python3-venv
+      update_cache: yes
+
+- name: Setup created host
+  hosts: test_host
+  gather_facts: no
+  tasks:
+  - name: Wait for host to be up
+    wait_for_connection:
+      delay: 5
+      timeout: 120
+  - name: Checkout from git
+    git:
+      repo: 'https://github.com/opentelekomcloud-infra/customer-service-monitoring'
+      dest: "{{ csm_home }}"
+      version: "{{ csm_version }}"
+      force: yes
+      depth: 1
