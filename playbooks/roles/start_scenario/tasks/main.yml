@@ -1,7 +1,19 @@
 ---
-- name: 'Run build.sh for each scenario' # noqa 301 305
+- name: 'Wait for host to be available'
+  wait_for_connection:
+    timeout: 120
+- name: Auth agent check
+  block:
+  - name: 'Check if auth agent available'  # noqa 305 301
+    shell: 'ssh-add -l'
+    ignore_errors: yes
+    register: ssh_add_result
+  - name: 'Start authentication agent'  # noqa 305
+    shell: 'eval `ssh-agent -s`'
+    when:  ssh_add_result.rc == 2
+- name: 'Run build.sh for scenario' # noqa 301 305
   environment: "{{ credentials_env }}"
-  shell: "./build.sh {{ scenario }}"
+  shell: "./build.sh {{ scenario }} -no-color"
   args:
     chdir: "{{ csm_home }}/scenarios"
 - name: 'Create venv if missing'
@@ -9,7 +21,7 @@
     name: pip
     virtualenv: "{{ csm_home }}/.venv"
     virtualenv_command: /usr/bin/python3 -m venv
-- name: 'Run test.sh for each scenario' # noqa 301 305
+- name: 'Run test.sh for scenario' # noqa 301 305
   environment: "{{ credentials_env }}"
   shell: "./test.sh {{ scenario }}"
   args:

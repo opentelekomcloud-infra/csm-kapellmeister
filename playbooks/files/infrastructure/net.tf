@@ -1,11 +1,11 @@
 
 resource "opentelekomcloud_vpc_v1" "vpc" {
-  cidr = "192.168.0.0/30"
+  cidr = "192.168.0.0/28"
   name = "${local.prefix}_vpc"
 }
 
 resource "opentelekomcloud_vpc_subnet_v1" "subnet" {
-  cidr          = "192.168.0.0/30"
+  cidr          = "192.168.0.0/29"
   gateway_ip    = "192.168.0.1"
   name          = "${local.prefix}_subnet"
   vpc_id        = opentelekomcloud_vpc_v1.vpc.id
