@@ -10,6 +10,7 @@
       name: python3-venv
       update_cache: yes
 
+
 - name: Setup created host
   hosts: test_host
   gather_facts: no
@@ -25,3 +26,5 @@
       version: "{{ csm_version }}"
       force: yes
       depth: 1
+  - name: Install ansible roles
+    shell: "ansible-galaxy install -r {{ csm_home }}/requirements.yml"
