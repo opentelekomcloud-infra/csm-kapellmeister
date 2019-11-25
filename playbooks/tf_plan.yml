@@ -1,6 +1,6 @@
 - name: Get test infra
   hosts: local
   vars:
-    state: present
+    state: plan
   roles:
   - tf_test_infra
