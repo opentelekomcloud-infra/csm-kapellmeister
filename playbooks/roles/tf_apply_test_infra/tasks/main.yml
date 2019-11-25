@@ -5,15 +5,10 @@
     dest: "{{ tmp_dir }}"
 - name: Download or create shared private key
   block:
-  - name: Download/create key
+  - name: Download/create key  # noqa 301 - get_key is more or less idempotent
     script: "get_key.py --output {{ key_path }} --key key/{{ key_name }}"
     args:
       executable: 'python3'
-      creates: "{{ key_path }}"
-  - name: chmod 400
-    file:
-      path: "{{ key_path }}"
-      mode: 0400
   - name: Get public key
     openssh_keypair:
       path: "{{ key_path }}"
