@@ -20,7 +20,7 @@ resource "opentelekomcloud_compute_instance_v2" "test_host" {
     opentelekomcloud_compute_secgroup_v2.public_ssh
   ]
   security_groups = [
-    opentelekomcloud_compute_secgroup_v2.public_ssh.id
+    opentelekomcloud_compute_secgroup_v2.public_ssh.name
   ]
   network {
     uuid = opentelekomcloud_vpc_subnet_v1.subnet.id
