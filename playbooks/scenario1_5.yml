@@ -1,0 +1,26 @@
+- import_playbook: tf_apply.yml
+
+- name: Start scenario 1.5
+  hosts: test_host
+  vars:
+    scenario: scenario1_5
+  roles:
+  - build_scenario
+  tasks:
+  - name: Path to cron
+    cron:
+      env: yes
+      name: PATH
+      value: /usr/local/bin:/usr/bin:/bin
+  - name: Environment
+    cron:
+      env: yes
+      name: "{{ item.key }}"
+      value: "{{ item.value }}"
+    loop: "{{ lookup('dict', credentials_env) }}"
+  - name: Schedule scn 1.5 test
+    cron:
+      name: Scenario 1.5 monitoring
+      user: linux
+      minute: '*/5'
+      job: "{{ start_ssh_agent }} && cd {{ csm_home }}/scenarios && ./test.sh {{ scenario }}"
