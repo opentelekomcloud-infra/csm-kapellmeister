@@ -5,4 +5,5 @@
   vars:
     scenario: scenario1
   roles:
+  - build_scenario
   - start_scenario

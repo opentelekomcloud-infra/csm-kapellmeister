@@ -1,5 +1,6 @@
 scenario: null
 csm_home: null
+csm_version: 'HEAD'
 start_ssh_agent: null
 credentials_env:
   AWS_ACCESS_KEY_ID: null
