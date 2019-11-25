@@ -1,24 +1,3 @@
----
-- name: 'Wait for host to be available'
-  wait_for_connection:
-    timeout: 30
-- name: Checkout from git
-  git:
-    repo: "{{ csm_repo }}"
-    dest: "{{ csm_home }}"
-    version: "{{ csm_version }}"
-    force: yes
-    depth: 1
-- name: 'Run build.sh for scenario' # noqa 301 305
-  environment: "{{ credentials_env }}"
-  shell: "{{ start_ssh_agent }} && ./build.sh {{ scenario }} -no-color"
-  args:
-    chdir: "{{ csm_home }}/scenarios"
-- name: 'Create venv if missing'
-  pip:
-    name: pip
-    virtualenv: "{{ csm_home }}/.venv"
-    virtualenv_command: /usr/bin/python3 -m venv
 - name: 'Run test.sh for scenario' # noqa 301 305
   environment: "{{ credentials_env }}"
   shell: "{{ start_ssh_agent }} && ./test.sh {{ scenario }}"

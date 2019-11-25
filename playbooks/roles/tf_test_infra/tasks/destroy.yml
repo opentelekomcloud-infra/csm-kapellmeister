@@ -1,0 +1,9 @@
+- name: Destroy infrastructure
+  environment: "{{ credentials_env }}"
+  terraform:
+    state: absent
+    force_init: yes
+    project_path: "{{ tmp_dir }}/{{ infrastructure_dir }}"
+    backend_config: "{{ backend_config }}"
+    variables:
+      public_key: "{{ public_key }}"

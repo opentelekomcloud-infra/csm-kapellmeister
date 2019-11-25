@@ -1,0 +1,28 @@
+---
+- name: Copy TF directory to /tmp
+  copy:
+    src: "{{ infrastructure_dir }}"
+    dest: "{{ tmp_dir }}"
+- name: Download or create shared private key
+  block:
+  - name: Download/create key  # noqa 301 - get_key is more or less idempotent
+    script: "get_key.py --output {{ key_path }} --key key/{{ key_name }}"
+    args:
+      executable: 'python3'
+  - name: Save public key
+    set_fact:
+      public_key: "{{ item }}"
+    with_file:
+    - "{{ key_path }}.pub"
+
+- name: Terrafrom apply
+  include_tasks: apply.yml
+  when: state == 'present'
+
+- name: Terrafrom destroy
+  include_tasks: destroy.yml
+  when: state == 'absent'
+
+- name: Terraform plan
+  include_tasks: plan.yml
+  when: state == 'plan'
