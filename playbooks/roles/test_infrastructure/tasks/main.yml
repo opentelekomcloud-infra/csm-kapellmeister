@@ -1,8 +1,4 @@
 ---
-- name: Copy TF directory to /tmp
-  copy:
-    src: "{{ infrastructure_dir }}"
-    dest: "{{ tmp_dir }}"
 - name: Download or create shared private key
   block:
   - name: Download/create key  # noqa 301 - get_key is more or less idempotent
@@ -21,8 +17,10 @@
     name: "{{ key_pair_name }}"
     public_key_file: "{{ key_path }}.pub"
 
-- include_role: opentelekomcloud.vpc
-- include_role: opentelekomcloud.bastion
+- include_role:
+    name: opentelekomcloud.vpc
+- include_role:
+    name: opentelekomcloud.bastion
 
 - name: Register created host
   add_host:

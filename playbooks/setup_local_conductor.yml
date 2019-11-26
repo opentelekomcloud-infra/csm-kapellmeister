@@ -5,8 +5,6 @@
   vars:
     requirements: 'requirements.txt'
     tmp_dir: '/tmp'
-  roles:
-  - darkwizard242.terraform
   tasks:
   - name: Copy Requirements
     copy:

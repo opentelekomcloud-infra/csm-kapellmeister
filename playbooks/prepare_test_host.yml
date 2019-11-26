@@ -30,7 +30,7 @@
       version: "{{ csm_version }}"
       force: yes
       depth: 1
-  - name: Install ansible roles
+  - name: Install ansible roles  # noqa 301 305
     shell: "ansible-galaxy install -r {{ csm_home }}/requirements.yml"
   - name: Install test host python requirements (including ansible)
     pip:
