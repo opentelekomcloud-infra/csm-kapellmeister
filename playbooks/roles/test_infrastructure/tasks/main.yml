@@ -15,14 +15,18 @@
     with_file:
     - "{{ key_path }}.pub"
 
-- name: Terrafrom apply
-  include_tasks: apply.yml
-  when: state == 'present'
+- name: Add key pair
+  os_keypair:
+    state: "{{ state }}"
+    name: "{{ key_pair_name }}"
+    public_key_file: "{{ key_path }}.pub"
 
-- name: Terrafrom destroy
-  include_tasks: destroy.yml
-  when: state == 'absent'
+- include_role: opentelekomcloud.vpc
+- include_role: opentelekomcloud.bastion
 
-- name: Terraform plan
-  include_tasks: plan.yml
-  when: state == 'plan'
+- name: Register created host
+  add_host:
+    hostname: 'test_host'
+    ansible_ssh_host: "{{ tf_output.outputs['test_host_ip']['value'] }}"
+    ansible_ssh_user: 'linux'
+    ansible_ssh_private_key_file: "{{ key_path }}"

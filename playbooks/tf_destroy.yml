@@ -3,4 +3,4 @@
   vars:
     state: absent
   roles:
-  - tf_test_infra
+  - test_infrastructure

@@ -1,1 +1,2 @@
-- src: darkwizard242.terraform
+- src: opentelekomcloud.vpc
+- src: opentelekomcloud.bastion
