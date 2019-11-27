@@ -4,19 +4,13 @@
   hosts: local
   vars:
     pip_requirements: 'requirements.txt'
-    roles_requirements: 'requirements.yml'
     tmp_dir: '/tmp'
   tasks:
   - name: Copy Requirements
     copy:
-      src: "{{ item }}"
+      src: "{{ pip_requirements }}"
       dest: "{{ tmp_dir }}"
-    loop:
-    - "{{ pip_requirements }}"
-    - "{{ roles_requirements }}"
   - name: Install master requirements
     pip:
       executable: pip3
       requirements: "{{ tmp_dir }}/{{ pip_requirements }}"
-  - name: Install ansible roles  # noqa 301 305
-    shell: "ansible-galaxy install -r {{ tmp_dir }}/{{ roles_requirements }}"
