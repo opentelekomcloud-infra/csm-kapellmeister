@@ -1,4 +1,4 @@
-- name: Get test infra
+- name: Destroy test infra
   hosts: local
   vars:
     state: absent

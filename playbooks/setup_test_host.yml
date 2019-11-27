@@ -1,5 +1,5 @@
 ---
-- import_playbook: tf_apply.yml
+- import_playbook: infrastructure_build.yml
 
 - name: Wait for test host
   hosts: test_host
@@ -9,16 +9,17 @@
     wait_for_connection:
       timeout: 120
 
-- name: Ensure required packages
+- name: Ensure packaged installed
   hosts: test_host
   become: yes
-  roles:
-  - role: darkwizard242.terraform  # Make sure required version of terraform is installed
   tasks:
-  - name: Ensure python3-venv available
+  - name: Install python3-venv
     apt:
       name: python3-venv
       update_cache: yes
+  - name: Install git
+    apt:
+      name: git
 
 - name: Setup created host
   hosts: test_host
@@ -37,3 +38,9 @@
       name: pip
       virtualenv: "{{ csm_home }}/.venv"
       virtualenv_command: '/usr/bin/python3 -m venv'
+
+- name: Ensure terraform installed
+  hosts: test_host
+  become: yes
+  roles:
+  - role: darkwizard242.terraform  # Make sure required version of terraform is installed
