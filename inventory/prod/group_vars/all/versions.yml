@@ -1,2 +1,2 @@
 ansible_version: '>= 0.2.8'
-csm_version: 'HEAD'
+csm_version: 'fix/awx-integration'
