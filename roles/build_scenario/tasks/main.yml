@@ -8,6 +8,9 @@
     version: "{{ csm_version }}"
     force: yes
     depth: 1
+- name: 'Debug creadentials'
+  debug:
+    var: credentials_env
 - name: 'Run build.sh for scenario' # noqa 301 305
   environment: "{{ credentials_env }}"
   shell: "{{ start_ssh_agent }} && ./build.sh {{ scenario }} -no-color"
