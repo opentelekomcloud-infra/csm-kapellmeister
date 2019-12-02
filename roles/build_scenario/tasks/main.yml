@@ -17,3 +17,10 @@
   shell: "{{ start_ssh_agent }} && ./build.sh {{ scenario }} -no-color"
   args:
     chdir: "{{ csm_home }}/scenarios"
+  when: scenario_state == 'present'
+- name: 'Run destroy.sh '
+  environment: "{{ credentials_env }}"
+  shell: "{{ start_ssh_agent }} && ./destroy.sh {{ scenario }} -no-color"
+  args:
+    chdir: "{{ csm_home }}/scenarios"
+  when: scenario_state == 'absent'

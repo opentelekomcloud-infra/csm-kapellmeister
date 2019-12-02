@@ -1,4 +1,4 @@
-- import_playbook: infrastructure_build.yml
+- import_playbook: infrastructure_discover.yml
 
 - name: Start scenario 1.5
   hosts: test_host

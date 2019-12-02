@@ -1,0 +1,6 @@
+- name: Get test infra
+  hosts: local
+  vars:
+    state: review  # won't trigger changes in vpc
+  roles:
+  - test_infrastructure
