@@ -9,4 +9,4 @@ credentials_env:
   TF_VAR_password: null
   TF_VAR_psql_password: null
   INFLUX_PASSWORD: null
-  INFLUX_PSWD: null
+scenario_state: present

@@ -8,8 +8,19 @@
     version: "{{ csm_version }}"
     force: yes
     depth: 1
+- name: 'Debug creadentials'
+  debug:
+    var: credentials_env
+    verbosity: 4
 - name: 'Run build.sh for scenario' # noqa 301 305
   environment: "{{ credentials_env }}"
   shell: "{{ start_ssh_agent }} && ./build.sh {{ scenario }} -no-color"
   args:
     chdir: "{{ csm_home }}/scenarios"
+  when: scenario_state == 'present'
+- name: 'Run destroy.sh '
+  environment: "{{ credentials_env }}"
+  shell: "{{ start_ssh_agent }} && ./destroy.sh {{ scenario }} -no-color"
+  args:
+    chdir: "{{ csm_home }}/scenarios"
+  when: scenario_state == 'absent'

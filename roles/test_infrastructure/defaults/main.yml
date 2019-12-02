@@ -1,0 +1,22 @@
+infrastructure_dir: null
+tmp_dir: null
+key_path: null
+key_name: null
+
+state: present
+
+prefix: null
+key_pair_name: null
+network_name: null
+subnet_name: null
+subnet_cidr: null
+security_group: null
+server_keypair_name: null
+server_image: null
+server_flavor: null
+ansible_ssh_private_key_file: null
+availability_zone: null
+server_name: null
+server_net: null
+server_subnet: null
+domain_name: null

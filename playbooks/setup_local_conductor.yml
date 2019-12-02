@@ -3,16 +3,14 @@
   become: yes
   hosts: local
   vars:
-    requirements: 'requirements.txt'
+    pip_requirements: 'requirements.txt'
     tmp_dir: '/tmp'
-  roles:
-  - darkwizard242.terraform
   tasks:
   - name: Copy Requirements
     copy:
-      src: "{{ requirements }}"
+      src: "{{ pip_requirements }}"
       dest: "{{ tmp_dir }}"
   - name: Install master requirements
     pip:
       executable: pip3
-      requirements: "{{ tmp_dir }}/{{ requirements }}"
+      requirements: "{{ tmp_dir }}/{{ pip_requirements }}"

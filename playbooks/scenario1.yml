@@ -1,4 +1,4 @@
-- import_playbook: tf_apply.yml
+- import_playbook: infrastructure_build.yml
 
 - name: Start scenario 1
   hosts: test_host

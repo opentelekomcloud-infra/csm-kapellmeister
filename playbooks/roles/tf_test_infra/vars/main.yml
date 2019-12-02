@@ -1,4 +1,0 @@
-backend_config:
-  key: "terraform_state/test_infra"
-  bucket: "obs-csm"
-  region: "eu-de"

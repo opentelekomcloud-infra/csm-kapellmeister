@@ -1,0 +1,6 @@
+- name: Destroy test infra
+  hosts: local
+  vars:
+    state: absent
+  roles:
+  - test_infrastructure
