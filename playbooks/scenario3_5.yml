@@ -1,0 +1,9 @@
+- import_playbook: infrastructure_build.yml
+
+- name: Start scenario 3_5
+  hosts: test_host
+  vars:
+    scenario: scenario3_5
+  roles:
+  - build_scenario
+  - start_scenario
