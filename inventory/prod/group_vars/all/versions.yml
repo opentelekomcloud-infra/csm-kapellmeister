@@ -1,3 +1,3 @@
 terraform_version: '0.12.12'
 ansible_version: '>= 0.2.8'
-csm_version: 'test/env-logging'
+csm_version: 'HEAD'
