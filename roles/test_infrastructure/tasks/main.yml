@@ -21,8 +21,8 @@
     name: opentelekomcloud.vpc
 - include_role:
     name: opentelekomcloud.bastion
-    vars:
-      assign_floating_ip: False
+  vars:
+    assign_floating_ip: False
 
 - name: Assing FIP to bastion
   os_floating_ip:
