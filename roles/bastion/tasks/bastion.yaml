@@ -27,7 +27,7 @@
     # there is no need to attach FIP this way starting from OpenStackSDK==0.30.0
     - os_floating_ip:
         server: "{{ server_fqdn }}"
-        floating_ip_address: "{{ "fixed_floating_ip" | default(omit) }}"
+        floating_ip_address: "{{ fixed_floating_ip | default(omit) }}"
       when: assign_floating_ip|bool
 
     - name: get server info
