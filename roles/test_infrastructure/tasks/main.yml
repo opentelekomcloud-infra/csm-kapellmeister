@@ -22,12 +22,7 @@
 - include_role:
     name: opentelekomcloud.bastion
   vars:
-    assign_floating_ip: False
-
-- name: Assing FIP to bastion
-  os_floating_ip:
-    server: "{{ (server_name + '.' + domain_name) }}"
-    floating_ip_address: 80.158.33.71
+    fixed_floating_ip: 80.158.33.71
 
 - name: Register created host
   add_host:
