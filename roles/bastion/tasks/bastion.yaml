@@ -54,6 +54,10 @@
       set_fact:
         bastion_interface_ip: "{{ bastion_ips['floating'] | default(bastion_ips['fixed']) }}"
 
+    - name: Floating IP bool value
+      debug:
+        var: not fixed_floating_ip
+
     - name: debug interface IP
       debug:
         var: bastion_interface_ip
@@ -82,4 +86,4 @@
       os_server:
         state: absent
         name: "{{ server_fqdn }}"
-        delete_fip: True
+        delete_fip: "{{ not fixed_floating_ip | default(True) }}"
