@@ -20,9 +20,7 @@
 - include_role:
     name: opentelekomcloud.vpc
 - include_role:
-    name: bastion
-  vars:
-    fixed_floating_ip: 80.158.33.71
+    name: opentelekomcloud.bastion
 
 - name: Register created host
   add_host:

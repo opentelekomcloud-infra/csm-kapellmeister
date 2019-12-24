@@ -2,7 +2,6 @@
   hosts: local
   vars:
     state: absent
-    fixed_floating_ip: 80.158.33.71
   tasks:
     - name: Remove key pair
       os_keypair:
@@ -10,5 +9,5 @@
         name: "{{ key_pair_name }}"
         public_key_file: "{{ key_path }}.pub"
   roles:
-  - bastion
+  - opentelekomcloud.bastion
   - opentelekomcloud.vpc
