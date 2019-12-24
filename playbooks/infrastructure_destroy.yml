@@ -2,8 +2,7 @@
   hosts: local
   vars:
     state: absent
-  include_role:
-    name: bastion
     fixed_floating_ip: 80.158.33.71
-  include_role:
-    name: opentelekomcloud.vpc
+  roles:
+  - bastion
+  - opentelekomcloud.vpc
