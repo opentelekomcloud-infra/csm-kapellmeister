@@ -9,5 +9,5 @@
         name: "{{ key_pair_name }}"
         public_key_file: "{{ key_path }}.pub"
   roles:
-  - opentelekomcloud.bastion
+  - bastion
   - opentelekomcloud.vpc

@@ -20,7 +20,7 @@
 - include_role:
     name: opentelekomcloud.vpc
 - include_role:
-    name: opentelekomcloud.bastion
+    name: bastion
 
 - name: Register created host
   add_host:
