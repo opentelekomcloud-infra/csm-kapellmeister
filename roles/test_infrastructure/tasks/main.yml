@@ -20,7 +20,7 @@
 - include_role:
     name: opentelekomcloud.vpc
 - include_role:
-    name: bastion
+    name: opentelekomcloud.bastion
   vars:
     fixed_floating_ip: 80.158.33.71
 
