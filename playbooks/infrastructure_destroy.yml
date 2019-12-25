@@ -2,5 +2,12 @@
   hosts: local
   vars:
     state: absent
+  tasks:
+    - name: Remove key pair
+      os_keypair:
+        state: "{{ state }}"
+        name: "{{ key_pair_name }}"
+        public_key_file: "{{ key_path }}.pub"
   roles:
-  - test_infrastructure
+  - opentelekomcloud.bastion
+  - opentelekomcloud.vpc
