@@ -2,7 +2,6 @@
   hosts: local
   vars:
     state: absent
-    fixed_floating_ip: 80.158.33.71
   tasks:
     - name: Remove key pair
       os_keypair:
