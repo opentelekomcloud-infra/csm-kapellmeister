@@ -1,0 +1,49 @@
+---
+- import_playbook: infrastructure_build.yml
+
+- name: Install and run delatore
+  hosts: test_host
+  become: yes
+  tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        upgrade: yes
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name:
+          - python3-setuptools
+          - python3-pip
+          - cron
+
+    - name: Install delatore
+      pip:
+        executable: pip3
+        name: delatore
+
+    - name: Start monitoring server
+      shell: "nohup /usr/bin/python3 -m delatore &" # noqa 301 305
+
+- name: Install and setup nginx
+  hosts: test_host
+  become: yes
+  vars_files:
+  - "./vars/delatore_nginx_parameters.yml"
+  roles:
+    - role: geerlingguy.certbot
+    vars:
+      certbot_create_if_missing: true
+      certbot_auto_renew_user: linux
+      certbot_auto_renew_minute: "20"
+      certbot_auto_renew_hour: "5"
+      certbot_certs:
+        - domains:
+            - "{{ fixed_floating_ip }}"
+    - role: geerlingguy.nginx
+    vars:
+      nginx_remove_default_vhost: yes
+      nginx_vhosts:
+      - listen: "443 ssl"
+        server_name: "localhost"
+        extra_parameters: "{{ extra_parameters }}"
