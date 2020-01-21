@@ -31,6 +31,14 @@
   vars_files:
   - "./vars/delatore_nginx_parameters.yml"
   roles:
+    - role: geerlingguy.nginx
+    vars:
+      nginx_remove_default_vhost: yes
+      nginx_vhosts:
+      - listen: "443 ssl"
+        server_name: "{{ domain }}"
+        extra_parameters: "{{ extra_parameters }}"
+
     - role: geerlingguy.certbot
     vars:
       certbot_create_if_missing: true
@@ -39,11 +47,5 @@
       certbot_auto_renew_hour: "5"
       certbot_certs:
         - domains:
-            - "{{ fixed_floating_ip }}"
-    - role: geerlingguy.nginx
-    vars:
-      nginx_remove_default_vhost: yes
-      nginx_vhosts:
-      - listen: "443 ssl"
-        server_name: "localhost"
-        extra_parameters: "{{ extra_parameters }}"
+            - "{{ domain }}"
+
