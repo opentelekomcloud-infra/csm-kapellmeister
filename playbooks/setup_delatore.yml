@@ -29,7 +29,7 @@
     - name: Copy config file
       copy:
         src: delatore_config.ini
-        dest: {{ config_path }}
+        dest: "{{ config_path }}"
 
     - name: Start delatore
       shell: "nohup /usr/bin/python3 -m delatore --config {{ config_path }} &" # noqa 301 305
