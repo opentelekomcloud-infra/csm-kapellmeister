@@ -16,6 +16,7 @@
           - python3-setuptools
           - python3-pip
           - cron
+          - build-essential
 
     - name: Install delatore
       pip:
