@@ -5,7 +5,7 @@
   hosts: test_host
   become: yes
   vars:
-    config_path: /tmp/delatore/delatore_config.ini
+    config_path: /tmp/delatore_config.ini
   tasks:
     - name: Update and upgrade apt packages
       apt:
