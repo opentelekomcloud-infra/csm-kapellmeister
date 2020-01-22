@@ -23,11 +23,6 @@
           - build-essential
           - python3-dev
 
-    - name: Install delatore
-      pip:
-        executable: pip3
-        name: delatore
-
     - name: Write configuration
       template:
         src: delatore_config.ini.j2
