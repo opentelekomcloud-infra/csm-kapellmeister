@@ -26,10 +26,11 @@
         executable: pip3
         name: delatore
 
-    - name: Copy config file
-      copy:
-        src: delatore_config.ini
+    - name: Write configuration
+      template:
+        src: delatore_config.ini.j2
         dest: "{{ config_path }}"
+        force: yes
 
     - name: Start delatore
       shell: "nohup /usr/bin/python3 -m delatore --config {{ config_path }} &" # noqa 301 305
