@@ -23,21 +23,19 @@
           - build-essential
           - python3-dev
 
+    - name: Install delatore
+      pip:
+        executable: pip3
+        name: "git+{{ delatore_repo }}"
+
     - name: Write configuration
       template:
         src: delatore_config.ini.j2
         dest: "{{ config_path }}"
         force: yes
 
-    - name: Checkout from git
-      git:
-        repo: "{{ delatore_repo }}"
-        dest: "{{ delatore_home }}"
-        force: yes
-        depth: 1
-
     - name: Start delatore
-      shell: "nohup /usr/bin/python3 {{ delatore_home }}/delatore/delatore --config {{ config_path }} &" # noqa 301 305
+      shell: "nohup /usr/bin/python3 -m delatore --config {{ config_path }} &" # noqa 301 305
 
 - name: Install and setup nginx
   hosts: test_host
