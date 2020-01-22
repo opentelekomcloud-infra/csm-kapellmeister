@@ -43,6 +43,7 @@
   vars:
     certbot_admin_email: "delatore@{{ domain }}"
     certbot_create_if_missing: true
+    certbot_create_standalone_stop_services: []
     certbot_auto_renew_user: linux
     certbot_auto_renew_minute: "20"
     certbot_auto_renew_hour: "5"
