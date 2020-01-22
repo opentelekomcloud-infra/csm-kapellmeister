@@ -4,6 +4,8 @@
 - name: Install and run delatore
   hosts: test_host
   become: yes
+  vars:
+    config_path: /tmp/delatore/delatore_config.ini
   tasks:
     - name: Update and upgrade apt packages
       apt:
@@ -24,8 +26,13 @@
         executable: pip3
         name: delatore
 
-    - name: Start monitoring server
-      shell: "nohup /usr/bin/python3 -m delatore &" # noqa 301 305
+    - name: Copy config file
+      copy:
+        src: delatore_config.ini
+        dest: {{ config_path }}
+
+    - name: Start delatore
+      shell: "nohup /usr/bin/python3 -m delatore --config {{ config_path }} &" # noqa 301 305
 
 - name: Install and setup nginx
   hosts: test_host
@@ -46,5 +53,5 @@
       server_name: "{{ domain }}"
       extra_parameters: "{{ extra_parameters }}"
   roles:
-    - role: geerlingguy.nginx
     - role: geerlingguy.certbot
+    - role: geerlingguy.nginx
