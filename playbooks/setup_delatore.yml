@@ -41,6 +41,7 @@
   vars_files:
   - "./vars/delatore_nginx_parameters.yml"
   vars:
+    certbot_admin_email: "delatore@{{ domain }}"
     certbot_create_if_missing: true
     certbot_auto_renew_user: linux
     certbot_auto_renew_minute: "20"
