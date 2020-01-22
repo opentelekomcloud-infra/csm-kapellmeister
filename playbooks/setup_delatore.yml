@@ -26,7 +26,8 @@
     - name: Install delatore
       pip:
         executable: pip3
-        name: "git+{{ delatore_repo }}"
+        name: delatore
+        version: 0.2.1b1
 
     - name: Write configuration
       template:
