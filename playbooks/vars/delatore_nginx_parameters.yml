@@ -1,4 +1,4 @@
-domain: delatore.kpi.tsi-dev.otc-service.com
+domain: delatore.eco.tsi-dev.otc-service.com
 port: 23834
 extra_parameters: |
             location / {
