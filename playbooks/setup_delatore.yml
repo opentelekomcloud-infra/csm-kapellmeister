@@ -27,7 +27,7 @@
 
     - name: Create venv
       pip:
-        executable: pip3
+        name: pip
         virtualenv: "{{ delatore_virtualenv_path }}/.venv"
         virtualenv_command: '/usr/bin/python3 -m venv'
 
