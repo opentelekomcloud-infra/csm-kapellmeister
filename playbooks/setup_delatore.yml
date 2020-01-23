@@ -34,6 +34,7 @@
     - name: Install delatore
       pip:
         name: delatore
+        state: latest # noqa 301 305
         virtualenv: "{{ delatore_virtualenv_path }}/.venv"
 
     - name: Write configuration
