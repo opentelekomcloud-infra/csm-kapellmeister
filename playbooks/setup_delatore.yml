@@ -1,0 +1,88 @@
+---
+- import_playbook: infrastructure_build.yml
+
+- name: Install and run delatore
+  hosts: test_host
+  become: yes
+  tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        upgrade: yes
+        update_cache: yes
+
+    - name: Create directory for virtual environment
+      file:
+        path: "{{ delatore_virtualenv_path }}"
+        state: directory
+        mode: "0755"
+
+    - name: Install required packages
+      apt:
+        name:
+          - python3-setuptools
+          - python3-pip
+          - cron
+          - build-essential
+          - python3-dev
+          - python3-venv
+
+    - name: Create venv
+      pip:
+        name: pip
+        virtualenv: "{{ delatore_virtualenv_path }}/.venv"
+        virtualenv_command: '/usr/bin/python3 -m venv'
+
+    - name: Install delatore
+      pip:
+        name: delatore
+        state: latest # noqa 301 305
+        virtualenv: "{{ delatore_virtualenv_path }}/.venv"
+
+    - name: Write configuration
+      template:
+        src: delatore_config.ini.j2
+        dest: "{{ delatore_config_path }}"
+        force: yes
+
+    - name: Get running delatore processes list from remote host
+      ignore_errors: yes
+      shell: "ps -few | grep delatore | awk '{print $2}'"
+      register: delatore_running_processes
+
+    - name: Kill running delatore processes
+      ignore_errors: yes
+      shell: "kill {{ item }}"
+      with_items: "{{ delatore_running_processes.stdout_lines }}"
+
+    - wait_for:
+        path: "/proc/{{ item }}/status"
+        state: absent
+      with_items: "{{ delatore_running_processes.stdout_lines }}"
+      ignore_errors: yes
+
+    - name: Start delatore
+      shell: "start-stop-daemon -Sbmvp /tmp/delatore.pid -x {{ delatore_virtualenv_path }}/.venv/bin/python -- -m delatore --config {{ delatore_config_path }}" # noqa 301 305
+
+- name: Install and setup nginx
+  hosts: test_host
+  become: yes
+  vars_files:
+  - "./vars/delatore_nginx_parameters.yml"
+  vars:
+    certbot_admin_email: "delatore@{{ domain }}"
+    certbot_create_if_missing: true
+    certbot_create_standalone_stop_services: []
+    certbot_auto_renew_user: linux
+    certbot_auto_renew_minute: "20"
+    certbot_auto_renew_hour: "5"
+    certbot_certs:
+      - domains:
+          - "{{ domain }}"
+    nginx_remove_default_vhost: yes
+    nginx_vhosts:
+    - listen: "443 ssl"
+      server_name: "{{ domain }}"
+      extra_parameters: "{{ extra_parameters }}"
+  roles:
+    - role: geerlingguy.certbot
+    - role: geerlingguy.nginx
