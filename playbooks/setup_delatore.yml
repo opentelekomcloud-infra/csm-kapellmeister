@@ -34,7 +34,6 @@
     - name: Install delatore
       pip:
         name: delatore
-        version: 0.2.1
         virtualenv: "{{ delatore_virtualenv_path }}/.venv"
 
     - name: Write configuration
