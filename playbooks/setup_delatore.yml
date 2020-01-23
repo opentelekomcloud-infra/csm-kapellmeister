@@ -29,7 +29,7 @@
       pip:
         executable: pip3
         virtualenv: "{{ delatore_virtualenv_path }}/.venv"
-        virtualenv_command: /usr/bin/python3 -m venv
+        virtualenv_command: '/usr/bin/python3 -m venv'
 
     - name: Install delatore
       pip:
