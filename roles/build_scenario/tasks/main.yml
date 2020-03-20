@@ -12,15 +12,29 @@
   debug:
     var: credentials_env
     verbosity: 4
-- name: 'Run build.sh for scenario' # noqa 301 305
-  environment: "{{ credentials_env }}"
-  shell: "{{ start_ssh_agent }} && ./build.sh {{ scenario }} -no-color"
-  args:
-    chdir: "{{ csm_home }}/scenarios"
-  when: scenario_state == 'present'
-- name: 'Run destroy.sh '
-  environment: "{{ credentials_env }}"
-  shell: "{{ start_ssh_agent }} && ./destroy.sh {{ scenario }} -no-color"
-  args:
-    chdir: "{{ csm_home }}/scenarios"
-  when: scenario_state == 'absent'
+
+- name: Provisioning with bash
+  block:
+  - name: Build # noqa 301 305
+    environment: "{{ credentials_env }}"
+    shell: "{{ start_ssh_agent }} && ./build.sh {{ scenario }} -no-color"
+    args:
+      chdir: "{{ csm_home }}/scenarios"
+    when: scenario_state == 'present'
+  - name: Destroy
+    environment: "{{ credentials_env }}"
+    shell: "{{ start_ssh_agent }} && ./destroy.sh {{ scenario }} -no-color"
+    args:
+      chdir: "{{ csm_home }}/scenarios"
+    when: scenario_state == 'absent'
+  when: not bashless
+
+- name: Provisioning with ansible
+  block:
+  - name: Build
+    include: "{{ csm_home }}/playbooks/{{ scenario }}_setup.yml"
+    when: scenario_state == 'present'
+  - name: Destroy
+    include: "{{ csm_home }}/playbooks/{{ scenario }}_destroy.yml"
+    when: scenario_state == 'absent'
+  when: bashless

@@ -10,3 +10,4 @@ credentials_env:
   TF_VAR_psql_password: null
   INFLUX_PASSWORD: null
 scenario_state: present
+bashless: no
