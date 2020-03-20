@@ -4,6 +4,7 @@
   hosts: test_host
   vars:
     scenario: scenario3_5
+    bashless: yes
   roles:
   - build_scenario
   - start_scenario
