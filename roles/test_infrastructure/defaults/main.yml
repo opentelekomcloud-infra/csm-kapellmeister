@@ -5,6 +5,12 @@ key_name: null
 
 state: present
 
+username: null
+password: null
+auth_url: null
+user_domain_name: null
+project_name: null
+region_name: null
 prefix: null
 key_pair_name: null
 network_name: null
