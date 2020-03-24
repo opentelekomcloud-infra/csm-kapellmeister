@@ -3,7 +3,7 @@
 - import_playbook: creation_clouds_template.yml
 
 - name: Start scenario 1
-  hosts: test_host
+  hosts: local
   vars:
     scenario: scenario1
   roles:
