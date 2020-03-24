@@ -32,12 +32,13 @@
 - name: Provisioning with ansible
   block:
   - name: Build
-    command:
-      cmd: "ansible-playbook 'playbooks/{{ scenario }}_setup.yml'"
+    command: "ansible-playbook 'playbooks/{{ scenario }}_setup.yml'"
+    args:
       chdir: "{{ csm_home }}"
     when: scenario_state == 'present'
   - name: Destroy
     command: "ansible-playbook 'playbooks/{{ scenario }}_destroy.yml'"
-    chdir: "{{ csm_home }}"
+    args:
+      chdir: "{{ csm_home }}"
     when: scenario_state == 'absent'
   when: bashless

@@ -1,24 +1,6 @@
 - import_playbook: infrastructure_build.yml
 
-- name: Creation clouds.yaml on test_host
-  hosts: test_host
-  become: yes
-  vars:
-    username: "{{ lookup('env', 'TF_username') }}"
-    password: "{{ lookup('env', 'TF_password') }}"
-    auth_url: https://iam.eu-de.otc.t-systems.com/v3
-    user_domain_name: OTC00000000001000000447
-    project_name: eu-de_rus
-    region_name: eu-de
-  tasks:
-   - name:  Creation openstack directory
-     file:
-       path: ~/.config/openstack/
-       state: directory
-   - name: Filling template of clouds.yaml.j2
-     template:
-       src: clouds.yaml.j2
-       dest: ~/.config/openstack/clouds.yaml
+- import_playbook: creation_clouds_template.yml
 
 - name: Start scenario 1.5
   hosts: test_host

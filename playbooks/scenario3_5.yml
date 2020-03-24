@@ -1,5 +1,7 @@
 - import_playbook: infrastructure_build.yml
 
+- import_playbook: creation_clouds_template.yml
+
 - name: Start scenario 3_5
   hosts: test_host
   vars:
