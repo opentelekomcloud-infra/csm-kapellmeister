@@ -9,5 +9,5 @@ key_path: "{{ tmp_dir }}/{{ key_name }}"
 ansible_ssh_private_key_file: "{{ key_path }}"
 
 start_ssh_agent: 'eval `ssh-agent -s`'
-delatore_config_path: /tmp/delatore_config.ini
+delatore_config_path: /home/linux/config/config.ini
 delatore_virtualenv_path: /home/linux/delatore
