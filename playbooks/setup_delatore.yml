@@ -62,6 +62,8 @@
 
     - name: Start delatore
       shell: "start-stop-daemon -Sbmvp /tmp/delatore.pid -x {{ delatore_virtualenv_path }}/.venv/bin/python -- -m delatore --config {{ delatore_config_path }}" # noqa 301 305
+      args:
+        chdir: "{{ home }}"
 
 - name: Install and setup nginx
   hosts: test_host
