@@ -32,10 +32,10 @@
         virtualenv: "{{ delatore_virtualenv_path }}/.venv"
         virtualenv_command: '/usr/bin/python3 -m venv'
 
-    - name: Install delatore
+    - name: Install delatore  # noqa 301 305
       pip:
         name: delatore
-        state: latest # noqa 301 305
+        state: latest
         virtualenv: "{{ delatore_virtualenv_path }}/.venv"
 
     - name: Write configuration
@@ -60,10 +60,8 @@
       with_items: "{{ delatore_running_processes.stdout_lines }}"
       ignore_errors: yes
 
-    - name: Start delatore
-      shell: "start-stop-daemon -Sbmvp /tmp/delatore.pid -x {{ delatore_virtualenv_path }}/.venv/bin/python -- -m delatore --config {{ delatore_config_path }}" # noqa 301 305
-      args:
-        chdir: "{{ home }}"
+    - name: Start delatore  # noqa 301 305
+      shell: "start-stop-daemon -Sbmvp /tmp/delatore.pid -x {{ delatore_virtualenv_path }}/.venv/bin/python -- -m delatore --config {{ delatore_config_path }}"
 
 - name: Install and setup nginx
   hosts: test_host
